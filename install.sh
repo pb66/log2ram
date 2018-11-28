@@ -14,6 +14,7 @@ systemctl enable log2ram
 # cron
 install -m 755 log2ram.hourly /etc/cron.hourly/log2ram
 install -m 644 log2ram.logrotate /etc/logrotate.d/log2ram
+install -m 644 log2ram.00_olddir /etc/logrotate.d/00_olddir
 
 # Remove a previous log2ram version
   rm -rf /var/log.hdd
@@ -21,5 +22,6 @@ install -m 644 log2ram.logrotate /etc/logrotate.d/log2ram
 
 # Make sure we start clean
 rm -rf /var/log.bak
+rm -rf /var/log.old
 
 echo "##### Reboot to activate log2ram #####"

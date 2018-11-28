@@ -9,9 +9,14 @@ then
   rm /etc/log2ram.conf
   rm /etc/cron.hourly/log2ram
   rm /etc/logrotate.d/log2ram
+  rm /etc/logrotate.d/00_olddir
 
   if [ -d /var/log.bak ]; then
     rm -r /var/log.bak
+  fi
+  if [ -d /var/log.old ]; then
+    # TODO: maybe rotated logs should be moved back to /var/log?
+    rm -r /var/log.old
   fi
   echo "Log2Ram is uninstalled, removing the uninstaller in progress"
   rm /usr/local/bin/uninstall-log2ram.sh
