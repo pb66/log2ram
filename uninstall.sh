@@ -10,8 +10,8 @@ then
   rm /etc/cron.hourly/log2ram
   rm /etc/logrotate.d/log2ram
 
-  if [ -d /var/hdd.log ]; then
-    rm -r /var/hdd.log
+  if [ -d /var/log.bak ]; then
+    rm -r /var/log.bak
   fi
   echo "Log2Ram is uninstalled, removing the uninstaller in progress"
   rm /usr/local/bin/uninstall-log2ram.sh

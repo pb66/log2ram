@@ -17,8 +17,9 @@ install -m 644 log2ram.logrotate /etc/logrotate.d/log2ram
 
 # Remove a previous log2ram version
   rm -rf /var/log.hdd
+  rm -rf /var/hdd.log
 
 # Make sure we start clean
-rm -rf /var/hdd.log
+rm -rf /var/log.bak
 
 echo "##### Reboot to activate log2ram #####"

@@ -2,7 +2,7 @@
 
 . /etc/log2ram.conf
 
-HDD_LOG=/var/hdd.log
+HDD_LOG=/var/log.bak
 RAM_LOG=/var/log
 
 LOG_NAME="log2ram.log"
