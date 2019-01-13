@@ -6,6 +6,7 @@
 
 # The path & name for rotated logfiles folder.
 # "/var/log.old" will `ls` next to "/var/log" and "/var/log.bak"
+# This must mirror the OLD_LOG variable in the log2ram script.
 olddir /var/log.old
 
 # Create the path if it doesn't exist

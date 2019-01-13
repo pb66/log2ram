@@ -3,6 +3,7 @@
 . /etc/log2ram.conf
 
 HDD_LOG=/var/log.bak
+OLD_LOG=/var/log.old
 RAM_LOG=/var/log
 
 LOG_NAME="log2ram.log"
@@ -59,7 +60,7 @@ case "$1" in
       mount -t tmpfs -o nosuid,noexec,nodev,mode=0755,size="$SIZE" log2ram $RAM_LOG/
       wait_for $RAM_LOG
       syncFromDisk
-      [ -f $RAM_LOG/rotated_logs] || ln -s $HDD_LOG $RAM_LOG/rotated_logs
+      [ -f $RAM_LOG/rotated_logs] || ln -s $OLD_LOG $RAM_LOG/rotated_logs
       ;;
 
   stop)
