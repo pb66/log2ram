@@ -50,9 +50,6 @@ log2ram on /var/log type tmpfs (rw,nosuid,nodev,noexec,relatime,size=40960k,mode
 pi@raspberrypi:~ $ df -h /var/log
 Filesystem      Size  Used Avail Use% Mounted on
 log2ram          40M   10M   31M  25% /var/log
-…
-log2ram on /var/log type tmpfs (rw,nosuid,nodev,noexec,relatime,size=40960k,mode=755)
-…
 ```
 The log for log2ram will be written at: `/var/log/log2ram.log`
 
