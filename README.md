@@ -43,14 +43,13 @@ In the file `/etc/log2ram.conf`, there are three variables:
 By default Log2Ram writes to the HardDisk every hour. If you think this is too much, you can make the write every day by moving the cron file to daily: `sudo mv /etc/cron.hourly/log2ram /etc/cron.daily/log2ram`.
 
 ### It is working?
-You can now check the mount folder in ram with (You will see lines with log2ram if working)
 ```
-# df -h
-…
-log2ram          40M  532K   40M   2% /var/log
-…
+pi@raspberrypi:~ $ mount | grep log2ram
+log2ram on /var/log type tmpfs (rw,nosuid,nodev,noexec,relatime,size=40960k,mode=755)
 
-# mount
+pi@raspberrypi:~ $ df -h /var/log
+Filesystem      Size  Used Avail Use% Mounted on
+log2ram          40M   10M   31M  25% /var/log
 …
 log2ram on /var/log type tmpfs (rw,nosuid,nodev,noexec,relatime,size=40960k,mode=755)
 …
