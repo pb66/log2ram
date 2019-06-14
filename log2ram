@@ -19,7 +19,10 @@ syncToDisk () {
     isSafe
 
     if [ "$USE_RSYNC" = true ]; then
-        rsync -aXWv --delete --links $RAM_LOG/ $HDD_LOG/ 2>&1 | $LOG_OUTPUT
+        rsync -aXv --inplace --no-whole-file --delete --links $RAM_LOG/ $HDD_LOG/ 2>&1 | $LOG_OUTPUT
+        # TODO confirm the best rsync command by running some comparision tests
+        # See https://community.openenergymonitor.org/t/emonsd-next-steps-filesystem/10693/54?u=pb66
+        #rsync -aXWv --delete --links $RAM_LOG/ $HDD_LOG/ 2>&1 | $LOG_OUTPUT
     else
         cp -rfup $RAM_LOG/ -T $HDD_LOG/ 2>&1 | $LOG_OUTPUT
     fi
