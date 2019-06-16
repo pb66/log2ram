@@ -65,15 +65,18 @@ case "$1" in
       wait_for $RAM_LOG
       syncFromDisk
       [ -d $RAM_LOG/rotated_logs ] || ln -s $OLD_LOG $RAM_LOG/rotated_logs
+      echo "INFO: Log2ram started $(date)"
       ;;
 
   stop)
+      echo "INFO: Log2ram stopping $(date)"
       syncToDisk
       umount -l $RAM_LOG/
       umount -l $HDD_LOG/
       ;;
 
   write)
+      echo "INFO: Log2ram syncing $(date)"
       syncToDisk
       ;;
 
