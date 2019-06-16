@@ -8,7 +8,6 @@ RAM_LOG=/var/log
 
 LOG_NAME="log2ram.log"
 LOG2RAM_LOG="${RAM_LOG}/${LOG_NAME}"
-LOG_OUTPUT="tee -a $LOG2RAM_LOG"
 
 isSafe () {
     [ -d $HDD_LOG/ ] || echo "ERROR: $HDD_LOG/ doesn't exist! Can't sync."
@@ -19,12 +18,12 @@ syncToDisk () {
     isSafe
 
     if [ "$USE_RSYNC" = true ]; then
-        rsync -aXv --inplace --no-whole-file --delete --links $RAM_LOG/ $HDD_LOG/ 2>&1 | $LOG_OUTPUT
+        rsync -aXv --inplace --no-whole-file --delete --links $RAM_LOG/ $HDD_LOG/ 2>&1
         # TODO confirm the best rsync command by running some comparision tests
         # See https://community.openenergymonitor.org/t/emonsd-next-steps-filesystem/10693/54?u=pb66
         #rsync -aXWv --delete --links $RAM_LOG/ $HDD_LOG/ 2>&1 | $LOG_OUTPUT
     else
-        cp -rfup $RAM_LOG/ -T $HDD_LOG/ 2>&1 | $LOG_OUTPUT
+        cp -rfup $RAM_LOG/ -T $HDD_LOG/ 2>&1
     fi
 }
 
@@ -42,9 +41,9 @@ syncFromDisk () {
     fi
 
     if [ "$USE_RSYNC" = true ]; then
-        rsync -aXWv --delete --links $HDD_LOG/ $RAM_LOG/ 2>&1 | $LOG_OUTPUT
+        rsync -aXWv --delete --links $HDD_LOG/ $RAM_LOG/ 2>&1
     else
-        cp -rfup $HDD_LOG/ -T $RAM_LOG/ 2>&1 | $LOG_OUTPUT
+        cp -rfup $HDD_LOG/ -T $RAM_LOG/ 2>&1
     fi
 }
 
