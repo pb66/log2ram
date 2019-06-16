@@ -9,6 +9,8 @@ RAM_LOG=/var/log
 LOG_NAME="log2ram.log"
 LOG2RAM_LOG="${RAM_LOG}/${LOG_NAME}"
 
+exec 1>>$LOG2RAM_LOG
+
 isSafe () {
     [ -d $HDD_LOG/ ] || echo "ERROR: $HDD_LOG/ doesn't exist! Can't sync."
     [ -d $HDD_LOG/ ] || exit 1
