@@ -13,7 +13,7 @@ systemctl enable log2ram
 
 # cron
 printf "# See /etc/cron.hourly/log2ram for logrotate cron entry.\n" > /etc/cron.daily/logrotate
-install -m 755 log2ram.hourly /etc/cron.hourly/log2ram
+install -m 755 log2ram.cron /etc/cron.hourly/log2ram
 install -m 644 log2ram.logrotate /etc/logrotate.d/00-log2ram
 
 # Remove a previous log2ram version
