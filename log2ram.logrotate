@@ -1,3 +1,24 @@
+
+# This file needs to be located in /etc/logrotate.d.
+# The file name needs to be prefixed "00" to ensure this file is
+# loaded before any program specific logrotate settings are loaded as
+# contents of /etc/logrotate.d are read in alphabetical order.
+
+# The path & name for rotated logfiles folder.
+# "/var/log.old" will `ls` next to "/var/log" and "/var/log.bak"
+# This must mirror the OLD_LOG variable in the log2ram script.
+olddir /var/log.old
+
+# Create the path if it doesn't exist
+createolddir 755 root root
+
+# To allow the files to be "moved" (ie copied and original deleted) 
+# to another device/partition (eg out of RAM)
+renamecopy
+
+# The settings above will save the rotated logfiles to a seperate location.
+# The settings below are to manage the log2ram log file rotation
+
 /var/log/log2ram.log
 {
   rotate 7
