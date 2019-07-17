@@ -8,7 +8,8 @@ RAM_LOG=/var/log
 
 LOG_NAME="log2ram.log"
 LOG2RAM_LOG="${RAM_LOG}/${LOG_NAME}"
-LOG_OUTPUT="tee -a $LOG2RAM_LOG"
+
+exec 3>&1 1>>$LOG2RAM_LOG 2>&1
 
 isSafe () {
     [ -d $HDD_LOG/ ] || echo "ERROR: $HDD_LOG/ doesn't exist! Can't sync."
@@ -19,12 +20,12 @@ syncToDisk () {
     isSafe
 
     if [ "$USE_RSYNC" = true ]; then
-        rsync -aXv --inplace --no-whole-file --delete --links $RAM_LOG/ $HDD_LOG/ 2>&1 | $LOG_OUTPUT
+        rsync -aXv --inplace --no-whole-file --delete --links $RAM_LOG/ $HDD_LOG/
         # TODO confirm the best rsync command by running some comparision tests
         # See https://community.openenergymonitor.org/t/emonsd-next-steps-filesystem/10693/54?u=pb66
         #rsync -aXWv --delete --links $RAM_LOG/ $HDD_LOG/ 2>&1 | $LOG_OUTPUT
     else
-        cp -rfup $RAM_LOG/ -T $HDD_LOG/ 2>&1 | $LOG_OUTPUT
+        cp -rfup $RAM_LOG/ -T $HDD_LOG/
     fi
 }
 
@@ -42,9 +43,9 @@ syncFromDisk () {
     fi
 
     if [ "$USE_RSYNC" = true ]; then
-        rsync -aXWv --delete --links $HDD_LOG/ $RAM_LOG/ 2>&1 | $LOG_OUTPUT
+        rsync -aXWv --delete --links $HDD_LOG/ $RAM_LOG/
     else
-        cp -rfup $HDD_LOG/ -T $RAM_LOG/ 2>&1 | $LOG_OUTPUT
+        cp -rfup $HDD_LOG/ -T $RAM_LOG/
     fi
 }
 
@@ -64,20 +65,23 @@ case "$1" in
       wait_for $RAM_LOG
       syncFromDisk
       [ -d $RAM_LOG/rotated_logs ] || ln -s $OLD_LOG $RAM_LOG/rotated_logs
+      echo "INFO: Log2ram started $(date)"
       ;;
 
   stop)
+      echo "INFO: Log2ram stopping $(date)"
       syncToDisk
       umount -l $RAM_LOG/
       umount -l $HDD_LOG/
       ;;
 
   write)
+      echo "INFO: Log2ram syncing $(date)"
       syncToDisk
       ;;
 
   *)
-      echo "Usage: log2ram {start|stop|write}" >&2
+      echo "Usage: log2ram {start|stop|write}" >&3
       exit 1
       ;;
 esac
