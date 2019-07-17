@@ -9,7 +9,7 @@ if ! command -v git > /dev/null; then
 fi
 
 REPO_PATH=/home/pi/
-L2R_REPO_PATH=${REPO_PATH}/log2ram
+L2R_REPO_PATH=${REPO_PATH}log2ram/
 
 mkdir -p ${REPO_PATH}
 git clone https://github.com/pb66/log2ram.git ${L2R_REPO_PATH}
