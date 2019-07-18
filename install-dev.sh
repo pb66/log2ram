@@ -5,7 +5,7 @@
 [ "$(id -u)" -eq 0 ] || { echo "You need to be ROOT (sudo can be used)"; exit 1; }
 
 if ! command -v git > /dev/null; then
-    apt-get update && apt-get -y install git || echo "Git not available, exiting!"; exit 0
+    apt-get update && apt-get -y install git || { echo "Git not available, exiting!"; exit 0 }
 fi
 
 REPO_PATH=/opt/pb66/
@@ -33,7 +33,7 @@ ln -sf ${L2R_REPO_PATH}log2ram.cron /etc/cron.hourly/log2ram
 ln -sf ${L2R_REPO_PATH}log2ram.logrotate /etc/logrotate.d/00-log2ram
 #install -m 644 log2ram.logrotate /etc/logrotate.d/00-log2ram
 
-# Remove a previous log2ram version
+# Remove any previous log2ram version's redundant files
   rm -rf /var/log.hdd
   rm -rf /var/hdd.log
 
