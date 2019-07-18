@@ -5,7 +5,7 @@
 [ "$(id -u)" -eq 0 ] || { echo "You need to be ROOT (sudo can be used)"; exit 1; }
 
 if ! command -v git > /dev/null; then
-    apt-get update && apt-get -y install git || { echo "Git not available, exiting!"; exit 0 }
+    apt-get update && apt-get -y install git || { echo "Git not available, exiting!"; exit 0; }
 fi
 
 REPO_PATH=/opt/pb66/
